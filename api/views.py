@@ -6,7 +6,7 @@ from . import utilities
 
 # Create your views here.
 def patient_count(request):
-    if request.method == 'GET' or request.method == 'get':
+    if request.method == 'GET' :
         d = {
             'total_visits': random.randint(500, 700),
             'total_patients': random.randint(300, 500),
@@ -14,7 +14,8 @@ def patient_count(request):
             'meta': {
                 'ip_address': utilities.get_client_ip(request),
                 'request_type': 'get',
-                'response_type': 'json'
+                'response_type': 'json',
+                'user_agent': request.META['HTTP_USER_AGENT']
             }
         }
         return JsonResponse(d)
@@ -25,8 +26,37 @@ def trend(request, start_date, end_date):
         # start_date = start_date
         start_date = datetime.datetime.strptime(start_date, '%d-%m-%Y')
         end_date = datetime.datetime.strptime(end_date, '%d-%m-%Y')
+
+        week_start = start_date - datetime.timedelta(days=start_date.weekday())
+        last_week_start = end_date - datetime.timedelta(days=end_date.weekday())
+
+
+        previous_day = week_start
+        next_day = week_start + datetime.timedelta(days=7)
+
+        data = []
+
+        while next_day <= last_week_start:
+            male = random.randint(40, 70)
+            female = random.randint(30, 60)
+            data.append({
+                'start': previous_day.strftime("%d/%m/%Y"),
+                'end:': next_day.strftime("%d/%m/%Y"),
+                'male': male,
+                'female': female
+            })
+            previous_day = next_day
+            next_day = next_day + datetime.timedelta(days=7)
+
+        start_date.strftime("%d/%m/%Y")
+
         d = {
-            'start_date': start_date,
-            'end_date': end_date
+            'data': data,
+            'meta': {
+                'ip_address': utilities.get_client_ip(request),
+                'request_type': 'get',
+                'response_type': 'json',
+                'user_agent': request.META['HTTP_USER_AGENT']
+            }
         }
         return JsonResponse(d)
