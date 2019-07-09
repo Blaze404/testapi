@@ -34,29 +34,32 @@ def trend(request, start_date, end_date):
         previous_day = week_start
         next_day = week_start + datetime.timedelta(days=7)
 
-        data = []
+        data = {}
 
         while next_day <= last_week_start:
             male = random.randint(40, 70)
             female = random.randint(30, 60)
-            data.append({
-                'start': previous_day.strftime("%d/%m/%Y"),
-                'end:': next_day.strftime("%d/%m/%Y"),
+            data[ previous_day.strftime("%B")] = {
                 'male': male,
-                'female': female
-            })
+                'female': female,
+                'week_start': previous_day.strftime("%d/%m/%Y"),
+                'week_end': next_day.strftime("%d/%m/%Y"),
+            }
             previous_day = next_day
             next_day = next_day + datetime.timedelta(days=7)
 
         start_date.strftime("%d/%m/%Y")
 
-        d = {
-            'data': data,
-            'meta': {
+        data['meta'] = {
                 'ip_address': utilities.get_client_ip(request),
                 'request_type': 'get',
                 'response_type': 'json',
                 'user_agent': request.META['HTTP_USER_AGENT']
             }
-        }
-        return JsonResponse(d)
+
+        return JsonResponse(data)
+
+
+def age(request, start_date, end_date):
+    if request.method == 'GET':
+        pass
