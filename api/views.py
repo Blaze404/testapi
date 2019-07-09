@@ -11,3 +11,7 @@ def patient_count(request):
             'repeat_patients': random.randint(100, 300)
         }
         return JsonResponse(d)
+
+
+def trend(request):
+    pass
