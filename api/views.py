@@ -13,10 +13,11 @@ def patient_count(request):
         return JsonResponse(d)
 
 
-def trend(request, start_date):
+def trend(request, start_date, end_date):
     if request.method == 'GET' or request.method == 'get':
         start_date = start_date
         d = {
-            'start_date': start_date
+            'start_date': start_date,
+            'end_date': end_date
         }
         return JsonResponse(d)
