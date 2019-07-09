@@ -30,7 +30,6 @@ def trend(request, start_date, end_date):
         week_start = start_date - datetime.timedelta(days=start_date.weekday())
         last_week_start = end_date - datetime.timedelta(days=end_date.weekday())
 
-
         previous_day = week_start
         next_day = week_start + datetime.timedelta(days=7)
 
@@ -39,7 +38,7 @@ def trend(request, start_date, end_date):
         while next_day <= last_week_start:
             male = random.randint(40, 70)
             female = random.randint(30, 60)
-            data[ str(previous_day.day) +  previous_day.strftime("%B")] = {
+            data[ str(previous_day.day) + ' ' + previous_day.strftime("%B")] = {
                 'male': male,
                 'female': female,
                 'week_start': previous_day.strftime("%d/%m/%Y"),
