@@ -36,8 +36,8 @@ def trend(request, start_date, end_date):
         data = {}
 
         while next_day <= last_week_start:
-            male = random.randint(40, 70)
-            female = random.randint(30, 60)
+            male = random.randint(400, 700)
+            female = random.randint(300, 600)
             data[ str(previous_day.day) + ' ' + previous_day.strftime("%B")] = {
                 'male': male,
                 'female': female,
@@ -61,4 +61,123 @@ def trend(request, start_date, end_date):
 
 def age(request, start_date, end_date):
     if request.method == 'GET':
-        pass
+        data = {}
+        start_date = datetime.datetime.strptime(start_date, '%d-%m-%Y')
+        end_date = datetime.datetime.strptime(end_date, '%d-%m-%Y')
+        delta = (end_date - start_date).days
+        data['0'] = {
+            "male": random.randint(3, 10) * delta,
+            "female": random.randint(2, 9) * delta,
+        }
+        data['10'] = {
+            "male": random.randint(2, 9) * delta,
+            "female": random.randint(1, 8) * delta,
+        }
+        data['20'] = {
+            "male": random.randint(1, 5) * delta,
+            "female": random.randint(1, 5) * delta,
+        }
+        data['30'] = {
+            "male": random.randint(2, 5) * delta,
+            "female": random.randint(1, 5) * delta,
+        }
+        data['40'] = {
+            "male": random.randint(3, 6) * delta,
+            "female": random.randint(4, 8) * delta,
+        }
+        data['50'] = {
+            "male": random.randint(3, 7) * delta,
+            "female": random.randint(3, 8) * delta,
+        }
+        data['60'] =  {
+            "male": random.randint(4, 10) * delta,
+            "female": random.randint(5, 10) * delta,
+        }
+        data['70'] = {
+            "male": random.randint(3, 6) * delta,
+            "female": random.randint(3, 6) * delta,
+        }
+        data['80'] = {
+            "male": random.randint(1, 3) * delta,
+            "female": random.randint(1, 3) * delta,
+        }
+        data['90'] = {
+            "male": random.randint(1, 3) * delta,
+            "female": random.randint(1, 3) * delta,
+        }
+        data['100'] = {
+            "male": random.randint(0, 2) * delta,
+            "female": random.randint(0, 2) * delta,
+        }
+
+        data['meta'] = {
+            'ip_address': utilities.get_client_ip(request),
+            'request_type': 'get',
+            'response_type': 'json',
+            'user_agent': request.META['HTTP_USER_AGENT']
+        }
+
+        return JsonResponse(data)
+
+
+def patient_flow(request, start_date, end_date):
+    if request.method == 'GET':
+        data = {}
+        start_date = datetime.datetime.strptime(start_date, '%d-%m-%Y')
+        end_date = datetime.datetime.strptime(end_date, '%d-%m-%Y')
+
+        delta = (end_date - start_date).days
+
+        data['9:00 a.m.'] = {
+            "male": random.randint(5, 10) * delta,
+            "female": random.randint(5, 10) * delta,
+        }
+        data['10:00 a.m.'] = {
+            "male": random.randint(4, 9) * delta,
+            "female": random.randint(4, 9) * delta,
+        }
+        data['11:00 a.m.'] = {
+            "male": random.randint(4, 8) * delta,
+            "female": random.randint(4, 8) * delta,
+        }
+        data['12:00 a.m.'] = {
+            "male": random.randint(2, 5) * delta,
+            "female": random.randint(1, 5) * delta,
+        }
+        data['40'] = {
+            "male": random.randint(3, 6) * delta,
+            "female": random.randint(4, 8) * delta,
+        }
+        data['50'] = {
+            "male": random.randint(3, 7) * delta,
+            "female": random.randint(3, 8) * delta,
+        }
+        data['60'] = {
+            "male": random.randint(4, 10) * delta,
+            "female": random.randint(5, 10) * delta,
+        }
+        data['70'] = {
+            "male": random.randint(3, 6) * delta,
+            "female": random.randint(3, 6) * delta,
+        }
+        data['80'] = {
+            "male": random.randint(1, 3) * delta,
+            "female": random.randint(1, 3) * delta,
+        }
+        data['90'] = {
+            "male": random.randint(1, 3) * delta,
+            "female": random.randint(1, 3) * delta,
+        }
+        data['100'] = {
+            "male": random.randint(0, 2) * delta,
+            "female": random.randint(0, 2) * delta,
+        }
+
+        data['meta'] = {
+            'ip_address': utilities.get_client_ip(request),
+            'request_type': 'get',
+            'response_type': 'json',
+            'user_agent': request.META['HTTP_USER_AGENT']
+        }
+
+        return JsonResponse(data)
