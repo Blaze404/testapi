@@ -18,7 +18,7 @@ def trend(request, start_date, end_date):
     if request.method == 'GET' or request.method == 'get':
         # start_date = start_date
         start_date = datetime.datetime.strptime(start_date, '%d-%m-%Y')
-
+        end_date = datetime.datetime.strptime(end_date, '%d-%m-%Y')
         d = {
             'start_date': start_date,
             'end_date': end_date
