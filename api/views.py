@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 import random
 import datetime
+from . import utilities
 
 # Create your views here.
 def patient_count(request):
@@ -9,7 +10,12 @@ def patient_count(request):
         d = {
             'total_visits': random.randint(500, 700),
             'total_patients': random.randint(300, 500),
-            'repeat_patients': random.randint(100, 300)
+            'repeat_patients': random.randint(100, 300),
+            'meta': {
+                'ip_address': utilities.get_client_ip(request),
+                'request_type': 'get',
+                'response_type': 'json'
+            }
         }
         return JsonResponse(d)
 
