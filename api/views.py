@@ -193,3 +193,90 @@ def patient_flow(request, start_date, end_date):
         }
 
         return JsonResponse(data)
+
+
+def trend2(request, start_date, end_date):
+    if request.method == 'GET':
+        start_date = datetime.datetime.strptime(start_date, '%d-%m-%Y')
+        end_date = datetime.datetime.strptime(end_date, '%d-%m-%Y')
+
+        week_start = start_date - datetime.timedelta(days=start_date.weekday())
+        last_week_start = end_date - datetime.timedelta(days=end_date.weekday())
+
+        previous_day = week_start
+        next_day = week_start + datetime.timedelta(days=7)
+
+        data = []
+
+        while next_day <= last_week_start:
+            male = random.randint(400, 700)
+            female = random.randint(300, 600)
+
+            d = {}
+            d["date"] = str(previous_day.day) + previous_day.strftime("%B")
+            d["male"] = male
+            d["female"] = female
+
+            data.append(d)
+
+            previous_day = next_day
+            next_day = next_day + datetime.timedelta(days=7)
+        responce = {}
+        responce['datalist'] = data
+        responce['meta'] = {
+            'ip_address': utilities.get_client_ip(request),
+            'request_type': 'get',
+            'response_type': 'json',
+            'user_agent': request.META['HTTP_USER_AGENT']
+        }
+        return JsonResponse(responce)
+
+def patient_flow2(request, start_date, end_date):
+    if request.method == 'GET':
+        data = []
+        start_date = datetime.datetime.strptime(start_date, '%d-%m-%Y')
+        end_date = datetime.datetime.strptime(end_date, '%d-%m-%Y')
+
+        delta = (end_date - start_date).days
+
+        for iter, i in enumerate([9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]):
+            d = {}
+            if iter < 3:
+                d['timehour'] = str(i) + " a.m."
+            else:
+                d['timehour'] = str(i) + " p.m."
+            d["male"] =  random.randint(4, 10) * delta
+            d["female"] = random.randint(4, 10) * delta
+            data.append(d)
+        responce = {}
+        responce['datalist'] = data
+        responce['meta'] = {
+            'ip_address': utilities.get_client_ip(request),
+            'request_type': 'get',
+            'response_type': 'json',
+            'user_agent': request.META['HTTP_USER_AGENT']
+        }
+        return JsonResponse(responce)
+
+def age2(request, start_date, end_date):
+    if request.method == 'GET':
+        data = []
+        start_date = datetime.datetime.strptime(start_date, '%d-%m-%Y')
+        end_date = datetime.datetime.strptime(end_date, '%d-%m-%Y')
+        delta = (end_date - start_date).days
+
+        for i in [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]:
+            d = {}
+            d['agegroup'] = str(i)
+            d["male"] = random.randint(4, 10) * delta
+            d["female"] = random.randint(4, 10) * delta
+            data.append(d)
+        responce = {}
+        responce['datalist'] = data
+        responce['meta'] = {
+            'ip_address': utilities.get_client_ip(request),
+            'request_type': 'get',
+            'response_type': 'json',
+            'user_agent': request.META['HTTP_USER_AGENT']
+        }
+        return JsonResponse(responce)
