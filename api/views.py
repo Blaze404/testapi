@@ -197,8 +197,8 @@ def patient_flow(request, start_date, end_date):
 
 def trend2(request, start_date, end_date):
     if request.method == 'GET':
-        start_date = datetime.datetime.strptime(start_date, '%d-%m-%Y')
-        end_date = datetime.datetime.strptime(end_date, '%d-%m-%Y')
+        start_date = datetime.datetime.strptime(start_date, '%m-%d-%Y')
+        end_date = datetime.datetime.strptime(end_date, '%m-%d-%Y')
 
         week_start = start_date - datetime.timedelta(days=start_date.weekday())
         last_week_start = end_date - datetime.timedelta(days=end_date.weekday())
@@ -234,8 +234,8 @@ def trend2(request, start_date, end_date):
 def patient_flow2(request, start_date, end_date):
     if request.method == 'GET':
         data = []
-        start_date = datetime.datetime.strptime(start_date, '%d-%m-%Y')
-        end_date = datetime.datetime.strptime(end_date, '%d-%m-%Y')
+        start_date = datetime.datetime.strptime(start_date, '%m-%d-%Y')
+        end_date = datetime.datetime.strptime(end_date, '%m-%d-%Y')
 
         delta = (end_date - start_date).days
 
@@ -261,8 +261,8 @@ def patient_flow2(request, start_date, end_date):
 def age2(request, start_date, end_date):
     if request.method == 'GET':
         data = []
-        start_date = datetime.datetime.strptime(start_date, '%d-%m-%Y')
-        end_date = datetime.datetime.strptime(end_date, '%d-%m-%Y')
+        start_date = datetime.datetime.strptime(start_date, '%m-%d-%Y')
+        end_date = datetime.datetime.strptime(end_date, '%m-%d-%Y')
         delta = (end_date - start_date).days
 
         for i in [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]:
