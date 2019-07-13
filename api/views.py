@@ -238,6 +238,7 @@ def patient_flow2(request, start_date, end_date):
         end_date = datetime.datetime.strptime(end_date, '%m-%d-%Y')
 
         delta = (end_date - start_date).days
+        delta += 1
 
         for iter, i in enumerate([9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]):
             d = {}
@@ -264,6 +265,7 @@ def age2(request, start_date, end_date):
         start_date = datetime.datetime.strptime(start_date, '%m-%d-%Y')
         end_date = datetime.datetime.strptime(end_date, '%m-%d-%Y')
         delta = (end_date - start_date).days
+        delta += 1
 
         for i in [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]:
             d = {}
